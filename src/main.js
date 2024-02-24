@@ -16,8 +16,9 @@ function preload() {
 
 function create() {
     gameState.circle = this.add.circle(50, 800, 10, 0x00ff00);
-    this.physics.world.enable(gameState.circle);
-    floor = this.add.rectangle(0, 815, 3000, 10, 0xffffff);
+    const floor = this.add.rectangle(0, 815, 3000, 10, 0xffffff);
+    this.physics.add.existing(floor, true);
+    this.physics.add.collider(gameState.circle, floor);
     gameState.cursors = this.input.keyboard.createCursorKeys();
 }
 
@@ -29,6 +30,8 @@ function update() {
     }
     if (gameState.cursors.up.isDown) {
         gameState.circle.y -= 1;
+    } else if (gameState.cursors.down.isDown) {
+        gameState.circle.y += 1;
     }
 }
 
